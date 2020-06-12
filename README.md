@@ -20,14 +20,14 @@ Levels -2 to 2 are equivalent to the knob settings (`-2 - Rough`, `-1 - Coarse` 
 This system gives you the chance to upgrade a scientist's card to O5 in two upgrades with the risk of burning the card (tested)<br>
 
 ## Modification of the player's life<br>
-On each setting there is a chance (depending on the setting of the knob) for permanent¹ adding or taking life from the player.<br>
+On each setting there is a chance (depending on the position of the knob) for permanent¹ adding or taking life from the player.<br>
 | SCP-914 knob position | Ammount | Chances |
 |:---------:|:-------:|:-------:|
 | Rough | -100%² ³ ⁴ | 60% |
 | Coarse | -50%² ³ ⁴ | 50% |
 | 1:1 | +0%² ³ | 100% |
-| Fine | +50%² ³ | 40% |
-| VeryFine | +100%² ³ | 30% |
+| Fine | +25%² ³ | 40% |
+| VeryFine | +50%² ³ | 30% |
 
 ¹ - until death - if the player has a `-50%` life, then the first aid kit will regenerate only to this value. Even escaping doesn't help. To get rid of this effect, use SCP-914 or die.<br>
 ² - % of basic life (not actual life)<br>
