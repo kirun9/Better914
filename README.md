@@ -15,7 +15,7 @@ Each level has a specific chance of occur<br>
 | 4 | 5% | VeryFine |
 
 In addition, levels -1 to 1 have 20% chances of failure - (upgrade to the same item)<br>
-Levels -2 to 2 are equivalent to the knob settings (``-2`` - Rough, ``-1`` - Coarse etc.)<br>
+Levels -2 to 2 are equivalent to the knob settings (`-2 - Rough`, `-1 - Coarse` etc.)<br>
 <br>
 This system gives you the chance to upgrade a scientist's card to O5 in two upgrades with the risk of burning the card (tested)<br>
 
@@ -29,7 +29,7 @@ On each setting there is a chance (depending on the setting of the knob) for per
 | Fine | +50%² ³ | 40% |
 | VeryFine | +100%² ³ | 30% |
 
-¹ - until death - if the player has a `` -50% '' life, then the first aid kit will regenerate only to this value. Even escaping doesn't help. To get rid of this effect, use SCP-914 or die.<br>
+¹ - until death - if the player has a `-50%` life, then the first aid kit will regenerate only to this value. Even escaping doesn't help. To get rid of this effect, use SCP-914 or die.<br>
 ² - % of basic life (not actual life)<br>
 ³ - It also affects zombies<br>
 ⁴ - For SCP (except SCP-049-2), the percentage points are divided in half (see `b914_SCP_Damage_chance_multiplier`<br>
@@ -40,7 +40,7 @@ On each setting there is a chance (depending on the setting of the knob) for per
 | b914_enabled | boolean | true | Enables/Disables this plugin |
 | b914_knob_while_working | boolean | true | Enables/Disables option to rotate knob while SCP-914 is working |
 | b914_override_handcuff_config | boolean | true | Indicates if `b914_disarmed_interact` sould be used instread of game value |
-| b914_disarmed_interact | boolean | true | Enables/Disables ability of disarmed people to interact with objects |
+| b914_disarmed_interact | boolean | true | Enables/Disables ability of disarmed people to interact with SCP-914 |
 | b914_use_new_recipe_system | boolean | true | Enables/Disables ussage of new recipes |
 | b914_level-4_chance | float | 5.0 | Chances to degrade item to level -4 |
 | b914_level-3_chance | float | 10.0 | Chances to degrade item to level -3 |
