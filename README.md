@@ -32,7 +32,7 @@ On each setting there is a chance (depending on the setting of the knob) for per
 ¹ - until death - if the player has a `-50%` life, then the first aid kit will regenerate only to this value. Even escaping doesn't help. To get rid of this effect, use SCP-914 or die.<br>
 ² - % of basic life (not actual life)<br>
 ³ - It also affects zombies<br>
-⁴ - For SCP (except SCP-049-2), the percentage points are divided in half (see `b914_SCP_Damage_chance_multiplier`<br>
+⁴ - For SCP (except SCP-049-2), the percentage points are divided in half (see `b914_SCP_Damage_chance_multiplier`)<br>
 
 # Configs
 | Config Option | Value Type | Default Value | Description |
@@ -60,6 +60,6 @@ On each setting there is a chance (depending on the setting of the knob) for per
 | b914_fine_heal_amount | float | 25.0 | % Ammount of health to give to player |
 | b914_veryfine_heal_amount | float | 50.0 | % Ammount of health to give to player |
 | b914_rough_coarse_damage_SCPs | boolean | true | Enables/Disables taking damage to SCP's inside SCP-914 while on settings `rough` or `coarse` |
-| b914_SCP_Damage_chance_multiplier | float | 0.5 | Multiplies chances of taking damage (see `b914_rough_damage_chance` and `b914_coarse_damage_chance` |
+| b914_SCP_Damage_chance_multiplier | float | 0.5 | Multiplies chances of taking damage by SCP's (see `b914_rough_damage_chance` and `b914_coarse_damage_chance` |
 | b914_swap_players_roles | boolean | true | Enables/Disables swapping of players roles while on setting `1:1` *(To occur two different classes inside SCP-914 are needed)* |
 | b914_swap_role_chance | float | 20.0 | Chances for swapping roles to occur |
