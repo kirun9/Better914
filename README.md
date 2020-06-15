@@ -25,7 +25,7 @@ On each setting there is a chance (depending on the position of the knob) for pe
 |:---------:|:-------:|:-------:|
 | Rough | -100%² ³ ⁴ | 60% |
 | Coarse | -50%² ³ ⁴ | 50% |
-| 1:1 | +0%² ³ | 100% |
+| 1:1 | +0%² ³ | --- |
 | Fine | +25%² ³ | 40% |
 | VeryFine | +50%² ³ | 30% |
 
