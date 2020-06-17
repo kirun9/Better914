@@ -100,7 +100,7 @@ namespace Better914.Patches
 			int v = 0;
 			if (knobState == -2)
 			{
-				v=((GetRandomItem(
+				v=(GetRandomItem(
 					new float[] { 
 						0,
 						0,
@@ -113,7 +113,7 @@ namespace Better914.Patches
 			}
 			else if (knobState == -1)
 			{
-				v=((GetRandomItem(
+				v=(GetRandomItem(
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
@@ -124,7 +124,7 @@ namespace Better914.Patches
 			}
 			else if (knobState == 0)
 			{
-				v=(GetRandomItem(
+				v=GetRandomItem(
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						100-PluginConfig.Cfg.SameItemChance
@@ -133,7 +133,7 @@ namespace Better914.Patches
 			}
 			else if (knobState == 1)
 			{
-				v=(GetRandomItem(
+				v=GetRandomItem(
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
@@ -144,7 +144,7 @@ namespace Better914.Patches
 			}
 			else if (knobState == 2)
 			{
-				v=(GetRandomItem(
+				v=GetRandomItem(
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
@@ -346,7 +346,7 @@ namespace Better914.Patches
 			int sum = 0;
 			for(int i; i<chances.count; i++)
 			{
-				else if(r+sum>=chances[i]) return i;
+				if(r+sum>=chances[i]) return i;
 				else sum+=chances[i];
 			}
 			return 0;//if total chances are < 100% this can occur, the item wont be upgraded
