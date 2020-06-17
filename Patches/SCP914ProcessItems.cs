@@ -137,7 +137,7 @@ namespace Better914.Patches
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
-						100-(PluginConfig.Cfg.SameItemChance+PluginConfig.Cfg.Level2Chance)
+						100-(PluginConfig.Cfg.SameItemChance+PluginConfig.Cfg.Level2Chance),
 						PluginConfig.Cfg.Level2Chance
 					}
 				)-1;
