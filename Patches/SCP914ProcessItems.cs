@@ -300,7 +300,7 @@ namespace Better914.Patches
 			{
 				if (players.Count < 2) return;
 
-				if (CheckPercent(PluginConfig.Cfg.SwapRoleChance) || true)
+				if (CheckPercent(PluginConfig.Cfg.SwapRoleChance))
 				{
 					var player = players[Random.Range(0, players.Count - 1)];
 					var player2 = SelectDifferentRole(player, players.Except(new CharacterClassManager[] { player }));
