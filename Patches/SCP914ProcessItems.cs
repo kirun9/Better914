@@ -169,7 +169,11 @@ namespace Better914.Patches
 							(upgradeLevel == 3)  ? recipe.level_3  :
 							(upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
 
-				return options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
+				if (options.Length > 0)
+				{
+					selectedItem = options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
+				}
+				else return item;
 			}
 			return item;
 		}
