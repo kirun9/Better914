@@ -35,26 +35,23 @@ namespace Better914.Patches
 				}
 			}
 			Team team = __instance.Classes.SafeGet(__instance.CurClass).team;
-			if (team != Team.RSC)
+			if (team == Team.CDP)
 			{
-				if (team == Team.CDP)
+				if (flag)
 				{
-					if (flag)
-					{
-						__instance.SetPlayersClass(RoleType.NtfCadet, __instance.gameObject, false, true);
-						RoundSummary.escaped_scientists++;
-						__instance.GetComponent<PlayerStats>().health = __instance.Classes.SafeGet(RoleType.NtfCadet).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100);
-						__instance.GetComponent<PlayerStats>().maxHP = Mathf.RoundToInt(__instance.Classes.SafeGet(RoleType.NtfCadet).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100));
-						return false;
-					}
-					__instance.SetPlayersClass(RoleType.ChaosInsurgency, __instance.gameObject, false, true);
-					RoundSummary.escaped_ds++;
-					__instance.GetComponent<PlayerStats>().health = __instance.Classes.SafeGet(RoleType.ChaosInsurgency).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100);
-					__instance.GetComponent<PlayerStats>().maxHP = Mathf.RoundToInt(__instance.Classes.SafeGet(RoleType.ChaosInsurgency).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100));
+					__instance.SetPlayersClass(RoleType.NtfCadet, __instance.gameObject, false, true);
+					RoundSummary.escaped_scientists++;
+					__instance.GetComponent<PlayerStats>().health = __instance.Classes.SafeGet(RoleType.NtfCadet).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100);
+					__instance.GetComponent<PlayerStats>().maxHP = Mathf.RoundToInt(__instance.Classes.SafeGet(RoleType.NtfCadet).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100));
 					return false;
 				}
+				__instance.SetPlayersClass(RoleType.ChaosInsurgency, __instance.gameObject, false, true);
+				RoundSummary.escaped_ds++;
+				__instance.GetComponent<PlayerStats>().health = __instance.Classes.SafeGet(RoleType.ChaosInsurgency).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100);
+				__instance.GetComponent<PlayerStats>().maxHP = Mathf.RoundToInt(__instance.Classes.SafeGet(RoleType.ChaosInsurgency).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100));
+				return false;
 			}
-			else
+			else if (team == Team.RSC)
 			{
 				if (flag)
 				{
@@ -68,6 +65,7 @@ namespace Better914.Patches
 				RoundSummary.escaped_scientists++;
 				__instance.GetComponent<PlayerStats>().health = __instance.Classes.SafeGet(RoleType.NtfScientist).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100);
 				__instance.GetComponent<PlayerStats>().maxHP = Mathf.RoundToInt(__instance.Classes.SafeGet(RoleType.NtfScientist).maxHP * ((__instance.GetComponent<HealthChangedComponent>()?.ActualHealthPercentage ?? 100) / 100));
+				return false;
 			}
 			return false;
 		}
