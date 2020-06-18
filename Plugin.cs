@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Better914
 {
-    public partial class Plugin : EXILED.Plugin
+	public partial class Plugin : EXILED.Plugin
     {
         public override string getName { get; } = "Better 914";
 
@@ -27,7 +27,6 @@ namespace Better914
 
         public override void OnEnable()
         {
-            File.WriteAllBytes(@"C:\Users\Krystian\Desktop\Recipes.json", Utf8Json.JsonSerializer.Serialize(Plugin.CreateDefaultList()));
             LoadConfig();
             if (PluginConfig.Cfg.Enabled)
             {
@@ -44,10 +43,13 @@ namespace Better914
 
                 try
                 {
-                    Recipes = Plugin.CreateDefaultList();
+                    var recipesPath = Path.Combine(PluginManager.ExiledDirectory, $"Better914Recipes-{ServerStatic.ServerPort}.json");
+                    if (File.Exists(recipesPath))
+                        Recipes = Utf8Json.JsonSerializer.Deserialize<List<Scp914Recipe>>(File.ReadAllBytes(Path.Combine()));
+                    else
+                        Recipes = Plugin.CreateDefaultList();
                     HarmonyInstance = HarmonyInstance.Create("kirun9.b914." + ++HarmonyCounter);
                     HarmonyInstance.PatchAll();
-
                 }
                 catch (System.Exception ex)
                 {
@@ -73,92 +75,16 @@ namespace Better914
 
         public void CommandHandler(ref RACommandEvent ev)
         {
-            if (ev.Command.StartsWith("b914") || ev.Command.StartsWith("hurt"))
+            if (ev.Command.ToUpper().StartsWith("B914") )
             {
-                var args = ev.Command.Split(new char[]{ ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+                var args = ev.Command.Split(new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
                 args = args.Select(arg => arg.ToUpper()).ToArray();
-                int index = 0;
-                ev.Allow = false;
-                if (args[index] == "B914_") args[index] = args[index].Substring(5);
-                if (args[index] == "B914" && args.Length > index) index++;
-
-                if (args[index] == "CHANGE")
-                {
-                    if (args.Length != index + 2)
-                    {
-                        ev.Sender.RaReply("#Too many arguments! (expected " + (index + 2) + ")", false, true, "");
-                        return;
-                    }
-                    if (!PluginConfig.TryChangeVariable(args[index + 1], args[index + 2], out string reason))
-                    {
-                        ev.Sender.RaReply(reason, false, true, "");
-                        return;
-                    }
-                    SaveConfig();
-                    ev.Sender.RaReply("Variable set successfully", true, true, "");
+                if (args[0] == "B914_DUMPRECIPES" || (args.Length == 2 && args[1] == "DUMPRECIPES"))
+				{
                     ev.Allow = false;
-                    return;
-                }
-                if (args[index] == "GET")
-                {
-                    if (args.Length != index + 1)
-                    {
-                        ev.Sender.RaReply("#Too many arguments! (expected " + (index + 1) + ")", false, true, "");
-                        return;
-                    }
-                    string value;
-                    if (!PluginConfig.TryGetVariable(args[index + 1], out value, out string reason))
-                    {
-                        ev.Sender.RaReply(reason, false, true, "");
-                        return;
-                    }
-                    ev.Sender.RaReply("Config value: " + value, true, true, "");
-                    return;
-                }
-                if (args[0] == "HURT")
-                {
-                    if (args.Length > 1 && args.Length < 4)
-                    {
-                        int id;
-                        float value;
-                        if (args.Length == 2)
-                        {
-                            id = int.Parse(ev.Sender.SenderId);
-                            if (!float.TryParse(args[1], out value))
-                            {
-                                ev.Sender.RaReply("#Cannot parse " + value + " as float number", false, true, "");
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            if (!int.TryParse(args[1], out id))
-                            {
-                                ev.Sender.RaReply("#Cannot parse " + id + " as integer number", false, true, "");
-                                return;
-                            }
-                            if (!float.TryParse(args[2], out value))
-                            {
-                                ev.Sender.RaReply("#Cannot parse " + value + " as float number", false, true, "");
-                                return;
-                            }
-                        }
-                        var player = PlayerManager.players.FirstOrDefault(p => p.GetComponent<QueryProcessor>().PlayerId == id)?.GetComponent<CharacterClassManager>();
-                        if (player == null)
-                        {
-                            ev.Sender.RaReply("#Cannot fint user with id " + id, false, true, "");
-                            return;
-                        }
-                        player.GetComponent<PlayerStats>().HurtPlayer(new PlayerStats.HitInfo(value, "WORLD", Plugin.Scp914DamageType, player.GetComponent<QueryProcessor>().PlayerId), player.gameObject);
-                        return;
-                    }
-                    else
-                    {
-                        ev.Sender.RaReply("#Too many arguments! (expected 1 or 2)", false, true, "");
-                        return;
-                    }
-                }
-                ev.Allow = false;
+                    File.WriteAllBytes(Path.Combine(PluginManager.ExiledDirectory, "Better914Recipes-default.json"), Utf8Json.JsonSerializer.Serialize(Plugin.CreateDefaultList()));
+                    ev.Sender.RaReply("Default recipes file dumpedsuccessfully.", true, false, "");
+				}
             }
         }
 
@@ -166,11 +92,11 @@ namespace Better914
         {
             PluginConfig.Cfg = new PluginConfig()
             {
-                Enabled                     = Config.GetBool(   "b914_enabled"                      , true  ),
-                CanChangeKnobWhileWorking   = Config.GetBool(   "b914_knob_while_working"           , true  ),
-                CanDisarmedInteract         = Config.GetBool(   "b914_disarmed_interact"            , true  ),
-                OverrideHandcuffConfig      = Config.GetBool(   "b914_override_handcuff_config"     , true  ),
-                UseNewRecipeSystem          = Config.GetBool(   "b914_use_new_recipe_system"        , true  ),
+                Enabled                     = Config.GetBool (  "b914_enabled"                      , true  ),
+                CanChangeKnobWhileWorking   = Config.GetBool (  "b914_knob_while_working"           , true  ),
+                CanDisarmedInteract         = Config.GetBool (  "b914_disarmed_interact"            , true  ),
+                OverrideHandcuffConfig      = Config.GetBool (  "b914_override_handcuff_config"     , true  ),
+                UseNewRecipeSystem          = Config.GetBool (  "b914_use_new_recipe_system"        , true  ),
                 Level_4Chance               = Config.GetFloat(  "b914_level-4_chance"               , 5f    ),
                 Level_3Chance               = Config.GetFloat(  "b914_level-3_chance"               , 10f   ),
                 Level_2Chance               = Config.GetFloat(  "b914_level-2_chance"               , 20f   ),
@@ -179,7 +105,7 @@ namespace Better914
                 Level4Chance                = Config.GetFloat(  "b914_level4_chance"                , 5f    ),
                 SameItemChance              = Config.GetFloat(  "b914_same_item_chance"             , 20f   ),
                 InvUpgradeChance            = Config.GetFloat(  "b914_inv_upgrade_chance"           , 20f   ),
-                ChangePlayerHealth          = Config.GetBool(   "b914_change_player_health"         , true  ),
+                ChangePlayerHealth          = Config.GetBool (  "b914_change_player_health"         , true  ),
                 RoughDamageChance           = Config.GetFloat(  "b914_rough_damage_chance"          , 60f   ),
                 CoarseDamageChance          = Config.GetFloat(  "b914_coarse_damage_chance"         , 50f   ),
                 FineHealChance              = Config.GetFloat(  "b914_fine_heal_chance"             , 40f   ),
@@ -188,9 +114,9 @@ namespace Better914
                 CoarseDamageAmmout          = Config.GetFloat(  "b914_coarse_damage_amount"         , 50f   ),
                 FineHealAmmout              = Config.GetFloat(  "b914_fine_heal_amount"             , 25f   ),
                 VeryFineHealAmmout          = Config.GetFloat(  "b914_veryfine_heal_amount"         , 50f   ),
-                RoughCoarseDamageSCP        = Config.GetBool(   "b914_rough_coarse_damage_SCPs"     , true  ),
+                RoughCoarseDamageSCP        = Config.GetBool (  "b914_rough_coarse_damage_SCPs"     , true  ),
                 SCPDamageChanceMultiplier   = Config.GetFloat(  "b914_SCP_Damage_chance_multiplier" , 0.5f  ),
-                SwapPlayersRoles            = Config.GetBool(   "b914_swap_players_roles"           , true  ),
+                SwapPlayersRoles            = Config.GetBool (  "b914_swap_players_roles"           , true  ),
                 SwapRoleChance              = Config.GetFloat(  "b914_swap_role_chance"             , 20f   ),
             };
         }
@@ -242,19 +168,5 @@ namespace Better914
         {
 
         }
-    }
-
-    public class Scp914Recipe
-    {
-        public ItemType item;
-        public ItemType[] level__4;
-        public ItemType[] level__3;
-        public ItemType[] level__2;
-        public ItemType[] level__1;
-        public ItemType[] level_0;
-        public ItemType[] level_1;
-        public ItemType[] level_2;
-        public ItemType[] level_3;
-        public ItemType[] level_4;
     }
 }
