@@ -97,79 +97,79 @@ namespace Better914.Patches
 
 			int knobState = (int)knobStateRaw - 2;
 			var upgradeLevel = knobState;
-
-			if (knobState == -1)
+			int v = 0;
+			if (knobState == -2)
 			{
-				if (CheckPercent(PluginConfig.Cfg.Level_2Chance))
-				{
-					upgradeLevel = -2;
-				}
+				v = GetRandomItem(
+					new float[] { 
+						0,
+						0,
+						0,
+						100 - (PluginConfig.Cfg.Level_3Chance + PluginConfig.Cfg.Level_4Chance),
+						PluginConfig.Cfg.Level_3Chance,
+						PluginConfig.Cfg.Level_4Chance
+					} ) - 1;
 			}
-			else if (knobState == -2)
+			else if (knobState == -1)
 			{
-				if (CheckPercent(PluginConfig.Cfg.Level_3Chance))
-				{
-					upgradeLevel = -3;
-				}
-				if (CheckPercent(PluginConfig.Cfg.Level_4Chance))
-				{
-					upgradeLevel = -4;
-				}
+				v = GetRandomItem(
+					new float[] { 
+						PluginConfig.Cfg.SameItemChance,
+						0,
+						100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level_2Chance),
+						PluginConfig.Cfg.Level_2Chance
+					} ) - 1;
+			}
+			else if (knobState == 0)
+			{
+				v = GetRandomItem(
+					new float[] { 
+						PluginConfig.Cfg.SameItemChance,
+						100 - PluginConfig.Cfg.SameItemChance
+					} ) - 1;
 			}
 			else if (knobState == 1)
 			{
-				if (CheckPercent(PluginConfig.Cfg.Level2Chance))
-				{
-					upgradeLevel = 2;
-				}
+				v = GetRandomItem(
+					new float[] { 
+						PluginConfig.Cfg.SameItemChance,
+						0,
+						100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level2Chance),
+						PluginConfig.Cfg.Level2Chance
+					} ) - 1;
 			}
 			else if (knobState == 2)
 			{
-				if (CheckPercent(PluginConfig.Cfg.Level3Chance))
-				{
-					upgradeLevel = 3;
-				}
-				if (CheckPercent(PluginConfig.Cfg.Level4Chance))
-				{
-					upgradeLevel = 4;
-
-				}
+				v = GetRandomItem(
+					new float[] { 
+						PluginConfig.Cfg.SameItemChance,
+						0,
+						0,
+						100 - (PluginConfig.Cfg.Level3Chance + PluginConfig.Cfg.Level4Chance),
+						PluginConfig.Cfg.Level3Chance,
+						PluginConfig.Cfg.Level4Chance
+					} ) - 1;
 			}
-			var options =	(upgradeLevel == -4) ? recipe.level__4 :
-							(upgradeLevel == -3) ? recipe.level__3 :
-							(upgradeLevel == -2) ? recipe.level__2 :
-							(upgradeLevel == -1) ? recipe.level__1 :
-							(upgradeLevel == 0)  ? recipe.level_0  :
-							(upgradeLevel == 1)  ? recipe.level_1  :
-							(upgradeLevel == 2)  ? recipe.level_2  :
-							(upgradeLevel == 3)  ? recipe.level_3  :
-							(upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
+			
+			if (v == -1) return item; //-1 = the same item
+			else {
+				upgradeLevel = v;
+				var options =	(upgradeLevel == -4) ? recipe.level__4 :
+								(upgradeLevel == -3) ? recipe.level__3 :
+								(upgradeLevel == -2) ? recipe.level__2 :
+								(upgradeLevel == -1) ? recipe.level__1 :
+								(upgradeLevel == 0)  ? recipe.level_0  :
+								(upgradeLevel == 1)  ? recipe.level_1  :
+								(upgradeLevel == 2)  ? recipe.level_2  :
+								(upgradeLevel == 3)  ? recipe.level_3  :
+								(upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
 
-			ItemType selectedItem;
-
-			if (options.Length > 0)
-			{
-				if (upgradeLevel == 1 || upgradeLevel == 0 || upgradeLevel == -1)
+				if (options.Length > 0)
 				{
-					if (CheckPercent(PluginConfig.Cfg.SameItemChance))
-					{
-						selectedItem = item;
-					}
-					else
-					{
-						selectedItem = options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
-					}
+					return options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
 				}
-				else
-				{
-					selectedItem = options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
-				}
+				else return item;
 			}
-			else
-			{
-				selectedItem = item;
-			}
-			return selectedItem;
 		}
 
 		public static void UpgradePlayer(Scp914Machine instance, CharacterClassManager player, IEnumerable<CharacterClassManager> players)
@@ -332,6 +332,22 @@ namespace Better914.Patches
 			return (number < min) ? min : (number > max) ? max : number;
 		}
 
+		public static int GetRandomItem(float[] chances) //chances[0] is chance for the same item
+		{
+			for(int i = 0; i < chances.Length; i++) 
+			{
+				chances[i] *= 0.1f;
+			}
+			var r = Random.Range(0, 10);
+			float sum = 0;
+			for(int i = 0; i < chances.Length; i++)
+			{
+				if (r + sum >= chances[i]) return i;
+				else sum += chances[i];
+			}
+			return 0; //if total chances are < 100% this can occur, the item wont be upgraded
+		}
+		
 		public static bool CheckPercent(float chance)
 		{
 			chance /= 10;
