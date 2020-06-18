@@ -15,10 +15,13 @@ namespace Better914.Patches
 				|| (__instance._hc.CufferId > 0
 					&& !(PluginConfig.Cfg.OverrideHandcuffConfig ? PluginConfig.Cfg.CanDisarmedInteract : __instance.CanDisarmedInteract))
 				) return false;
+
 			if (!PluginConfig.Cfg.CanChangeKnobWhileWorking && Scp914Machine.singleton.working || !__instance.ChckDis(Scp914Machine.singleton.knob.position)) return false;
-			if (Plugin.KnobBlockade) return false;
+
+			//if (Plugin.KnobBlockade) return false;
+
 			Scp914Machine.singleton.ChangeKnobStatus();
-			Plugin.lastPlayer = ReferenceHub.GetHub(__instance.gameObject);
+			Plugin.LastPlayerHub = ReferenceHub.GetHub(__instance.gameObject);
 			__instance.OnInteract();
 			return false;
 		}

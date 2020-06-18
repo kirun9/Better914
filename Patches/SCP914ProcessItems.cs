@@ -223,9 +223,7 @@ namespace Better914.Patches
 						{
 							if (player.IsScpButNotZombie())
 							{
-								var lastPlayerName = Plugin.lastPlayer?.nicknameSync?.MyNick ?? "SCP-914";
-								var lastPlayerId = Plugin.lastPlayer?.queryProcessor?.PlayerId ?? -1;
-								stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP * ((c.RoughDamageAmmout / 2) / 100), lastPlayerName, Plugin.Scp914DamageType, lastPlayerId), player.gameObject);
+								stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP * ((c.RoughDamageAmmout / 2) / 100), Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
 							}
 							else
 							{
@@ -239,7 +237,7 @@ namespace Better914.Patches
 						{
 							if (player.IsScpButNotZombie())
 							{
-								stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP * ((c.CoarseDamageAmmout / 2) / 100), Plugin.LastPlayer, Plugin.Scp914DamageType, stats.GetComponent<QueryProcessor>().PlayerId), player.gameObject);
+								stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP * ((c.CoarseDamageAmmout / 2) / 100), Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
 							}
 							else
 							{
@@ -265,7 +263,7 @@ namespace Better914.Patches
 					Log.Info("newPercent: " + newPercent + "%");
 					if (newPercent <= 0)
 					{
-						stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP + 100f, Plugin.LastPlayer, Plugin.Scp914DamageType, stats.GetComponent<QueryProcessor>().PlayerId), player.gameObject);
+						stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP + 100f, Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
 						Object.Destroy(component);
 					}
 					else if (newPercent >= 100)

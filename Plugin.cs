@@ -11,16 +11,32 @@ namespace Better914
     {
         public override string getName { get; } = "Better 914";
 
-        public int DamageTypeInc = 0;
-        public static bool KnobBlockade { get; set; } = false;
+       // public static bool KnobBlockade { get; set; } = false;
         public static IEnumerable<MEC.CoroutineHandle> Coroutines { get; set; }
 
-        public static string LastPlayer { get; set; } = "SCP-914";
-        public static ReferenceHub lastPlayer { get; set; }
+        public static string LastPlayer
+		{
+            get
+			{
+                if (LastPlayerHub != null) return LastPlayerHub.GetComponent<NicknameSync>().MyNick;
+                else return "SCP-914";
+            }
+		}
+
+        public static int LastPlayerId
+		{
+            get
+			{
+                if (LastPlayerHub != null) return LastPlayerHub.GetComponent<QueryProcessor>().PlayerId;
+                else return -1;
+			}
+		}
+
+        public static ReferenceHub LastPlayerHub { get; set; }
 
         public static List<Scp914Recipe> Recipes { get; private set; }
 
-        public static DamageType Scp914DamageType = new DamageType("SCP-914", "Cała energia życiowa została zabrana przez SCP-914", false, true, -1);
+        public static DamageType Scp914DamageType { get; } = new DamageType("SCP-914", "Cała energia życiowa została zabrana przez SCP-914", false, true, -1);
 
         public static HarmonyInstance HarmonyInstance { get; private set; }
         public static int HarmonyCounter;
