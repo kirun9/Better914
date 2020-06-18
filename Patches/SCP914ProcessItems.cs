@@ -95,82 +95,82 @@ namespace Better914.Patches
             var recipe = Plugin.Recipes.Where(e => e.item == item).FirstOrDefault();
             if (recipe == null || recipe == default) recipe = Plugin.CreateDefaultRecipe(item);
 
-			int knobState = (int)knobStateRaw - 2;
-			var upgradeLevel = knobState;
-			int v = 0;
-			if (knobState == -2)
-			{
-				v = GetRandomItem(
-					new float[] { 
-						0,
-						0,
-						0,
-						100 - (PluginConfig.Cfg.Level_3Chance + PluginConfig.Cfg.Level_4Chance),
-						PluginConfig.Cfg.Level_3Chance,
-						PluginConfig.Cfg.Level_4Chance
-					} ) - 1;
-			}
-			else if (knobState == -1)
-			{
-				v = GetRandomItem(
-					new float[] { 
-						PluginConfig.Cfg.SameItemChance,
-						0,
-						100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level_2Chance),
-						PluginConfig.Cfg.Level_2Chance
-					} ) - 1;
-			}
-			else if (knobState == 0)
-			{
-				v = GetRandomItem(
-					new float[] { 
-						PluginConfig.Cfg.SameItemChance,
-						100 - PluginConfig.Cfg.SameItemChance
-					} ) - 1;
-			}
-			else if (knobState == 1)
-			{
-				v = GetRandomItem(
-					new float[] { 
-						PluginConfig.Cfg.SameItemChance,
-						0,
-						100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level2Chance),
-						PluginConfig.Cfg.Level2Chance
-					} ) - 1;
-			}
-			else if (knobState == 2)
-			{
-				v = GetRandomItem(
-					new float[] { 
-						PluginConfig.Cfg.SameItemChance,
-						0,
-						0,
-						100 - (PluginConfig.Cfg.Level3Chance + PluginConfig.Cfg.Level4Chance),
-						PluginConfig.Cfg.Level3Chance,
-						PluginConfig.Cfg.Level4Chance
-					} ) - 1;
-			}
-			
-			if (v == -1) return item; //-1 = the same item
-			else {
-				upgradeLevel = v;
-				var options =	(upgradeLevel == -4) ? recipe.level__4 :
-								(upgradeLevel == -3) ? recipe.level__3 :
-								(upgradeLevel == -2) ? recipe.level__2 :
-								(upgradeLevel == -1) ? recipe.level__1 :
-								(upgradeLevel == 0)  ? recipe.level_0  :
-								(upgradeLevel == 1)  ? recipe.level_1  :
-								(upgradeLevel == 2)  ? recipe.level_2  :
-								(upgradeLevel == 3)  ? recipe.level_3  :
-								(upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
+            int knobState = (int)knobStateRaw - 2;
+            var upgradeLevel = knobState;
+            int v = 0;
+            if (knobState == -2)
+            {
+                v = GetRandomItem(
+                    new float[] { 
+                        0,
+                        0,
+                        0,
+                        100 - (PluginConfig.Cfg.Level_3Chance + PluginConfig.Cfg.Level_4Chance),
+                        PluginConfig.Cfg.Level_3Chance,
+                        PluginConfig.Cfg.Level_4Chance
+                    } ) - 1;
+            }
+            else if (knobState == -1)
+            {
+                v = GetRandomItem(
+                    new float[] { 
+                        PluginConfig.Cfg.SameItemChance,
+                        0,
+                        100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level_2Chance),
+                        PluginConfig.Cfg.Level_2Chance
+                    } ) - 1;
+            }
+            else if (knobState == 0)
+            {
+                v = GetRandomItem(
+                    new float[] { 
+                        PluginConfig.Cfg.SameItemChance,
+                        100 - PluginConfig.Cfg.SameItemChance
+                    } ) - 1;
+            }
+            else if (knobState == 1)
+            {
+                v = GetRandomItem(
+                    new float[] { 
+                        PluginConfig.Cfg.SameItemChance,
+                        0,
+                        100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level2Chance),
+                        PluginConfig.Cfg.Level2Chance
+                    } ) - 1;
+            }
+            else if (knobState == 2)
+            {
+                v = GetRandomItem(
+                    new float[] { 
+                        PluginConfig.Cfg.SameItemChance,
+                        0,
+                        0,
+                        100 - (PluginConfig.Cfg.Level3Chance + PluginConfig.Cfg.Level4Chance),
+                        PluginConfig.Cfg.Level3Chance,
+                        PluginConfig.Cfg.Level4Chance
+                    } ) - 1;
+            }
+            
+            if (v == -1) return item; //-1 = the same item
+            else {
+                upgradeLevel = v;
+                var options =    (upgradeLevel == -4) ? recipe.level__4 :
+                                (upgradeLevel == -3) ? recipe.level__3 :
+                                (upgradeLevel == -2) ? recipe.level__2 :
+                                (upgradeLevel == -1) ? recipe.level__1 :
+                                (upgradeLevel == 0)  ? recipe.level_0  :
+                                (upgradeLevel == 1)  ? recipe.level_1  :
+                                (upgradeLevel == 2)  ? recipe.level_2  :
+                                (upgradeLevel == 3)  ? recipe.level_3  :
+                                (upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
 
-				if (options.Length > 0)
-				{
-					return options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
-				}
-				else return item;
-			}
-		}
+                if (options.Length > 0)
+                {
+                    return options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
+                }
+                else return item;
+            }
+        }
 
         public static void UpgradePlayer(Scp914Machine instance, CharacterClassManager player, IEnumerable<CharacterClassManager> players)
         {
