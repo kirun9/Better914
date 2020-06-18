@@ -1,6 +1,6 @@
 ﻿namespace Better914
 {
-	public class Scp914Recipe
+    public class Scp914Recipe
     {
         public ItemType item;
         public ItemType[] level__4;

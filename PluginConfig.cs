@@ -1,6 +1,6 @@
 ﻿namespace Better914
 {
-	public class PluginConfig
+    public class PluginConfig
     {
         public static PluginConfig Cfg { get; internal set; }
 

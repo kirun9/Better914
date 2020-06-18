@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Better914
 {
-	public partial class Plugin : EXILED.Plugin
+    public partial class Plugin : EXILED.Plugin
     {
         public override string getName { get; } = "Better 914";
 
@@ -15,22 +15,22 @@ namespace Better914
         public static IEnumerable<MEC.CoroutineHandle> Coroutines { get; set; }
 
         public static string LastPlayer
-		{
+        {
             get
-			{
+            {
                 if (LastPlayerHub != null) return LastPlayerHub.GetComponent<NicknameSync>().MyNick;
                 else return "SCP-914";
             }
-		}
+        }
 
         public static int LastPlayerId
-		{
+        {
             get
-			{
+            {
                 if (LastPlayerHub != null) return LastPlayerHub.GetComponent<QueryProcessor>().PlayerId;
                 else return -1;
-			}
-		}
+            }
+        }
 
         public static ReferenceHub LastPlayerHub { get; set; }
 
@@ -96,11 +96,11 @@ namespace Better914
                 var args = ev.Command.Split(new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
                 args = args.Select(arg => arg.ToUpper()).ToArray();
                 if (args[0] == "B914_DUMPRECIPES" || (args.Length == 2 && args[1] == "DUMPRECIPES"))
-				{
+                {
                     ev.Allow = false;
                     File.WriteAllBytes(Path.Combine(PluginManager.ExiledDirectory, "Better914Recipes-default.json"), Utf8Json.JsonSerializer.Serialize(Plugin.CreateDefaultList()));
                     ev.Sender.RaReply("Default recipes file dumpedsuccessfully.", true, false, "");
-				}
+                }
             }
         }
 
