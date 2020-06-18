@@ -105,7 +105,7 @@ namespace Better914.Patches
 						0,
 						0,
 						0,
-						100-(PluginConfig.Cfg.Level_3Chance+PluginConfig.Cfg.Level_4Chance),
+						100 - (PluginConfig.Cfg.Level_3Chance + PluginConfig.Cfg.Level_4Chance),
 						PluginConfig.Cfg.Level_3Chance,
 						PluginConfig.Cfg.Level_4Chance
 					} ) - 1;
@@ -116,7 +116,7 @@ namespace Better914.Patches
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
-						100-(PluginConfig.Cfg.SameItemChance+PluginConfig.Cfg.Level_2Chance),
+						100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level_2Chance),
 						PluginConfig.Cfg.Level_2Chance
 					} ) - 1;
 			}
@@ -125,7 +125,7 @@ namespace Better914.Patches
 				v = GetRandomItem(
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
-						100-PluginConfig.Cfg.SameItemChance
+						100 - PluginConfig.Cfg.SameItemChance
 					} ) - 1;
 			}
 			else if (knobState == 1)
@@ -134,7 +134,7 @@ namespace Better914.Patches
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
-						100-(PluginConfig.Cfg.SameItemChance+PluginConfig.Cfg.Level2Chance),
+						100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level2Chance),
 						PluginConfig.Cfg.Level2Chance
 					} ) - 1;
 			}
@@ -145,7 +145,7 @@ namespace Better914.Patches
 						PluginConfig.Cfg.SameItemChance,
 						0,
 						0,
-						100-(PluginConfig.Cfg.Level3Chance+PluginConfig.Cfg.Level4Chance),
+						100 - (PluginConfig.Cfg.Level3Chance + PluginConfig.Cfg.Level4Chance),
 						PluginConfig.Cfg.Level3Chance,
 						PluginConfig.Cfg.Level4Chance
 					} ) - 1;
