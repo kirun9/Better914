@@ -100,7 +100,7 @@ namespace Better914.Patches
 			int v = 0;
 			if (knobState == -2)
 			{
-				v = (GetRandomItem(
+				v = GetRandomItem(
 					new float[] { 
 						0,
 						0,
@@ -108,17 +108,17 @@ namespace Better914.Patches
 						100-(PluginConfig.Cfg.Level_3Chance+PluginConfig.Cfg.Level_4Chance),
 						PluginConfig.Cfg.Level_3Chance,
 						PluginConfig.Cfg.Level_4Chance
-					} ) * -1) - 1;
+					} ) - 1;
 			}
 			else if (knobState == -1)
 			{
-				v = (GetRandomItem(
+				v = GetRandomItem(
 					new float[] { 
 						PluginConfig.Cfg.SameItemChance,
 						0,
 						100-(PluginConfig.Cfg.SameItemChance+PluginConfig.Cfg.Level_2Chance),
 						PluginConfig.Cfg.Level_2Chance
-					} ) * -1) - 1;
+					} ) - 1;
 			}
 			else if (knobState == 0)
 			{
