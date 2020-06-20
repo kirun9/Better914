@@ -19,7 +19,7 @@ namespace Better914
             get
             {
                 if (LastPlayerHub != null) return LastPlayerHub.GetComponent<NicknameSync>().MyNick;
-                else return "SCP-914";
+                else return PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick;
             }
         }
 
@@ -28,7 +28,7 @@ namespace Better914
             get
             {
                 if (LastPlayerHub != null) return LastPlayerHub.GetComponent<QueryProcessor>().PlayerId;
-                else return -1;
+                else return PlayerManager.localPlayer.GetComponent<QueryProcessor>().PlayerId;
             }
         }
 

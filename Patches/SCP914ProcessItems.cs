@@ -223,7 +223,7 @@ namespace Better914.Patches
                         {
                             if (player.IsScpButNotZombie())
                             {
-                                stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP * ((c.RoughDamageAmmout / 2) / 100), Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
+                                HurtPlayer(stats.maxHP * ((c.RoughDamageAmmout / 2) / 100), stats, player);
                             }
                             else
                             {
@@ -237,7 +237,7 @@ namespace Better914.Patches
                         {
                             if (player.IsScpButNotZombie())
                             {
-                                stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP * ((c.CoarseDamageAmmout / 2) / 100), Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
+                                HurtPlayer(stats.maxHP * ((c.CoarseDamageAmmout / 2) / 100), stats, player);
                             }
                             else
                             {
@@ -263,10 +263,17 @@ namespace Better914.Patches
                     Log.Info("newPercent: " + newPercent + "%");
                     if (newPercent <= 0)
                     {
-                        stats.HurtPlayer(new PlayerStats.HitInfo(stats.maxHP + 100f, Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
-                        Object.Destroy(component);
+                        HurtPlayer(stats.maxHP + 1f, stats, player);
+                        if (stats.health > 0)
+                        {
+                            newPercent = 5f;
+                        }
+                        else
+                        {
+                            Object.Destroy(component);
+                        }
                     }
-                    else if (newPercent >= 100)
+                    if (newPercent >= 100)
                     {
                         var prev = stats.maxHP;
                         stats.maxHP = Mathf.RoundToInt(component.OriginalHealthAmmount * (newPercent / 100));
@@ -337,6 +344,14 @@ namespace Better914.Patches
             chance /= 10;
             var r = Random.Range(0, 10);
             return r <= chance;
+        }
+
+        private static void HurtPlayer(float damage, PlayerStats stats, CharacterClassManager player)
+        {
+            var temp = PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick;
+            PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick = "SCP-914";
+            stats.HurtPlayer(new PlayerStats.HitInfo(damage, Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
+            PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick = temp;
         }
     }
 }
