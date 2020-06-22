@@ -100,41 +100,41 @@ namespace Better914.Patches
             int v = 0;
             if (knobState == -2)
             {
-                v = GetRandomItem( new Dictionary<float, int> {
-                        { 100 - ( PluginConfig.Cfg.Level_4Chance + PluginConfig.Cfg.Level_3Chance ), -2 },
-                        { PluginConfig.Cfg.Level_3Chance, -3 },
-                        { PluginConfig.Cfg.Level_4Chance, -4 }
+                v = GetRandomItem( new List<Chance> {
+                        { new Chance(100 - ( PluginConfig.Cfg.Level_4Chance + PluginConfig.Cfg.Level_3Chance ), -2); },
+                        { new Chance(PluginConfig.Cfg.Level_3Chance, -3); },
+                        { new Chance(PluginConfig.Cfg.Level_4Chance, -4); }
                     });
             }
             else if (knobState == -1)
             {
-                v = GetRandomItem( new Dictionary<float, int> {
-                        { PluginConfig.Cfg.SameItemChance, 10 },
-                        { 100 - ( PluginConfig.Cfg.Level_2Chance ), -1 },
-                        { PluginConfig.Cfg.Level_2Chance, -2 }
+                v = GetRandomItem( new List<Chance> {
+                        { new Chance(PluginConfig.Cfg.SameItemChance, 10); },
+                        { new Chance(100 - ( PluginConfig.Cfg.Level_2Chance) , -1); },
+                        { new Chance(PluginConfig.Cfg.Level_2Chance, -2); }
                     });
             }
             else if (knobState == 0)
             {
-                v = GetRandomItem( new Dictionary<float, int> {
-                        { PluginConfig.Cfg.SameItemChance, 10 },
-                        { 100 - (PluginConfig.Cfg.SameItemChance), 0 }
+                v = GetRandomItem( new List<Chance> {
+                        { new Chance(PluginConfig.Cfg.SameItemChance, 10); },
+                        { new Chance(100 - (PluginConfig.Cfg.SameItemChance), 0); }
                     });
             }
             else if (knobState == 1)
             {
-                v = GetRandomItem( new Dictionary<float, int> {
-                        { PluginConfig.Cfg.SameItemChance, 10 },
-                        { 100 - ( PluginConfig.Cfg.Level2Chance ), 1 },
-                        { PluginConfig.Cfg.Level2Chance, 2 }
+                v = GetRandomItem( new List<Chance> {
+                        { new Chance(PluginConfig.Cfg.SameItemChance, 10); },
+                        { new Chance(100 - ( PluginConfig.Cfg.Level2Chance ), 1); },
+                        { new Chance(PluginConfig.Cfg.Level2Chance, 2); }
                     });
             }
             else if (knobState == 2)
             {
-                v = GetRandomItem( new Dictionary<float, int> {
-                        { 100 - ( PluginConfig.Cfg.Level4Chance + PluginConfig.Cfg.Level3Chance ), 2 },
-                        { PluginConfig.Cfg.Level3Chance, 3 },
-                        { PluginConfig.Cfg.Level4Chance, 4 }
+                v = GetRandomItem( new List<Chance> {
+                        { new Chance(100 - ( PluginConfig.Cfg.Level4Chance + PluginConfig.Cfg.Level3Chance ), 2); },
+                        { new Chance(PluginConfig.Cfg.Level3Chance, 3); },
+                        { new Chance(PluginConfig.Cfg.Level4Chance, 4); }
                     });
             }
             
@@ -326,25 +326,25 @@ namespace Better914.Patches
             return (number < min) ? min : (number > max) ? max : number;
         }
 
-    public static int GetRandomItem(Dictionary<float, int> chances)//int, int = chance, level
-    {
-        var r = Random.Range(0, 10);
-        r *= 10;
-        int sum = 0;
-        for(int i = 0; i < chances.Count; i++)
-        {
-            if (r <= chances[i] + sum) return i;
-            else sum += chances[i];
-        }
-        return 10; //if total chances are < 100% this can occur, the item wont be upgraded
-    }
+    	public static int GetRandomItem(List<Chance> chances)//int, int = chance, level
+    	{
+        	var r = Random.Range(0, 10);
+        	r *= 10;
+        	int sum = 0;
+        	for(int i = 0; i < chances.Count; i++)
+        	{
+            	    if (r <= chances[i].Chance + sum) return chances[i].Level;
+            	    else sum += chances[i].Chance;
+        	}
+        	return 10;
+    	}
 	
-	public static bool CheckPercent(float chance)
-	{
-		chance /= 10;
-		var r = Random.Range(0, 10);
-		return r <= chance;
-	}
+        public static bool CheckPercent(float chance)
+        {
+                chance /= 10;
+                var r = Random.Range(0, 10);
+                return r <= chance;
+        }
 
         private static void HurtPlayer(float damage, PlayerStats stats, CharacterClassManager player)
         {
@@ -353,5 +353,14 @@ namespace Better914.Patches
             stats.HurtPlayer(new PlayerStats.HitInfo(damage, Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
             PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick = temp;
         }
+	    
+	internal class Chance {
+		public float Chance;
+		public int Level;
+		public Chance(float chance, int level) {
+	            Chance = chance;
+		    Level = level;
+		}
+	}
     }
 }
