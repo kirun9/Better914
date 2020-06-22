@@ -118,14 +118,16 @@ namespace Better914.Patches
             }
             else if (knobState == 0)
             {
-                new Dictionary<int, int> {
+		v = GetRandomItem(
+                    new Dictionary<int, int> {
 			{ PluginConfig.Cfg.SameItemChance, 10 },
 			{ 100 - (PluginConfig.Cfg.SameItemChance), 0 }
             	} );
             }
             else if (knobState == 1)
             {
-                new Dictionary<int, int> {
+		v = GetRandomItem(
+                    new Dictionary<int, int> {
 			{ PluginConfig.Cfg.SameItemChance, 10 },
 			{ 100 - ( PluginConfig.Cfg.Level2Chance ), 1 },
 			{ PluginConfig.Cfg.Level2Chance, 2 }
