@@ -94,6 +94,7 @@ namespace Better914.Patches
         {
             var recipe = Plugin.Recipes.Where(e => e.item == item).FirstOrDefault();
             if (recipe == null || recipe == default) recipe = Plugin.CreateDefaultRecipe(item);
+            bool sameItem = false;
 
             int knobState = (int)knobStateRaw - 2;
             var upgradeLevel = knobState;
@@ -108,7 +109,7 @@ namespace Better914.Patches
                         100 - (PluginConfig.Cfg.Level_3Chance + PluginConfig.Cfg.Level_4Chance),
                         PluginConfig.Cfg.Level_3Chance,
                         PluginConfig.Cfg.Level_4Chance
-                    } ) - 1;
+                    } ) * (-1) - 1;
             }
             else if (knobState == -1)
             {
@@ -118,7 +119,8 @@ namespace Better914.Patches
                         0,
                         100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level_2Chance),
                         PluginConfig.Cfg.Level_2Chance
-                    } ) - 1;
+                    } ) * (-1) - 1;
+                if(v==1) sameItem = true;
             }
             else if (knobState == 0)
             {
@@ -127,6 +129,7 @@ namespace Better914.Patches
                         PluginConfig.Cfg.SameItemChance,
                         100 - PluginConfig.Cfg.SameItemChance
                     } ) - 1;
+                if(v==-1) sameItem = true;
             }
             else if (knobState == 1)
             {
@@ -137,6 +140,7 @@ namespace Better914.Patches
                         100 - (PluginConfig.Cfg.SameItemChance + PluginConfig.Cfg.Level2Chance),
                         PluginConfig.Cfg.Level2Chance
                     } ) - 1;
+                if(v==-1) sameItem = true;
             }
             else if (knobState == 2)
             {
@@ -151,7 +155,7 @@ namespace Better914.Patches
                     } ) - 1;
             }
             
-            if (v == -1) return item; //-1 = the same item
+            if (sameItem) return item; //-1 = the same item
             else {
                 upgradeLevel = v;
                 var options =    (upgradeLevel == -4) ? recipe.level__4 :
