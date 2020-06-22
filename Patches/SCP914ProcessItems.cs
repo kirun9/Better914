@@ -159,14 +159,14 @@ namespace Better914.Patches
             else {
                 upgradeLevel = v;
                 var options =    (upgradeLevel == -4) ? recipe.level__4 :
-                                (upgradeLevel == -3) ? recipe.level__3 :
-                                (upgradeLevel == -2) ? recipe.level__2 :
-                                (upgradeLevel == -1) ? recipe.level__1 :
-                                (upgradeLevel == 0)  ? recipe.level_0  :
-                                (upgradeLevel == 1)  ? recipe.level_1  :
-                                (upgradeLevel == 2)  ? recipe.level_2  :
-                                (upgradeLevel == 3)  ? recipe.level_3  :
-                                (upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
+                                 (upgradeLevel == -3) ? recipe.level__3 :
+                                 (upgradeLevel == -2) ? recipe.level__2 :
+                                 (upgradeLevel == -1) ? recipe.level__1 :
+                                 (upgradeLevel == 0)  ? recipe.level_0  :
+                                 (upgradeLevel == 1)  ? recipe.level_1  :
+                                 (upgradeLevel == 2)  ? recipe.level_2  :
+                                 (upgradeLevel == 3)  ? recipe.level_3  :
+                                 (upgradeLevel == 4)  ? recipe.level_4  : new ItemType[] { };
 
                 if (options.Length > 0)
                 {
