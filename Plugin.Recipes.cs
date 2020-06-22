@@ -19,32 +19,32 @@ namespace Better914
                     level__1 = new ItemType[] { ItemType.Coin }, // Coarse
                     level_0 = new ItemType[] { ItemType.KeycardZoneManager }, // 1:1
                     level_1 = new ItemType[] { ItemType.KeycardScientist }, // Fine
-                    level_2 = new ItemType[] { ItemType.KeycardScientistMajor }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // % VFine
-                    level_4 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // % Vfine
+                    level_2 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // % VFine
+                    level_4 = new ItemType[] { ItemType.Coin }, // % Vfine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardScientist,
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__3 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__2 = new ItemType[] { ItemType.Coin }, // % Coarse, Rough
+                    level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardJanitor }, // % Coarse, Rough
                     level__1 = new ItemType[] { ItemType.KeycardJanitor }, // Coarse
                     level_0 = new ItemType[] { ItemType.KeycardZoneManager }, // 1:1
-                    level_1 = new ItemType[] { ItemType.KeycardScientistMajor }, // Fine
-                    level_2 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // % VFine
-                    level_4 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
+                    level_1 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // Fine
+                    level_2 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // % VFine
+                    level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardScientistMajor,
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__3 = new ItemType[] { ItemType.Coin }, // % Rough
+                    level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
                     level__2 = new ItemType[] { ItemType.KeycardJanitor }, // % Coarse, Rough
                     level__1 = new ItemType[] { ItemType.KeycardScientist }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardGuard }, // 1:1
-                    level_1 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // Fine
+                    level_0 = new ItemType[] { ItemType.KeycardZoneManager }, // 1:1
+                    level_1 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // Fine
                     level_2 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // % Fine, VFine
                     level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
@@ -53,36 +53,36 @@ namespace Better914
                 {
                     item = ItemType.KeycardContainmentEngineer,
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardScientist }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardScientistMajor }, // Coarse
+                    level__3 = new ItemType[] { ItemType.KeycardScientist }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // Coarse
                     level_0 = new ItemType[] { ItemType.KeycardSeniorGuard }, // 1:1
                     level_1 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // Fine
                     level_2 = new ItemType[] { ItemType.KeycardO5 }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.Coin }, // % VFine
+                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardFacilityManager,
-                    level__4 = new ItemType[] { ItemType.KeycardGuard }, // % Rough
-                    level__3 = new ItemType[] { ItemType.KeycardSeniorGuard }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardNTFLieutenant }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardNTFCommander }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // 1:1
+                    level__4 = new ItemType[] { ItemType.Coin }, // % Rough
+                    level__3 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // Coarse
+                    level_0 = new ItemType[] { ItemType.KeycardNTFCommander, ItemType.KeycardChaosInsurgency }, // 1:1
                     level_1 = new ItemType[] { ItemType.KeycardO5 }, // Fine
-                    level_2 = new ItemType[] { ItemType.Coin }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.Coin }, // % VFine
+                    level_2 = new ItemType[] { ItemType.KeycardO5 }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardO5,
-                    level__4 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
-                    level__3 = new ItemType[] { ItemType.KeycardScientist }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardScientistMajor }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // Coarse
-                    level_0 = new ItemType[] {  }, // 1:1
+                    level__4 = new ItemType[] { ItemType.Coin }, // % Rough
+                    level__3 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardNTFCommander, ItemType.KeycardFacilityManager }, // Coarse
+                    level_0 = new ItemType[] { ItemType.KeycardChaosInsurgency }, // 1:1
                     level_1 = new ItemType[] { ItemType.Coin }, // Fine
                     level_2 = new ItemType[] { ItemType.Coin }, // % Fine, VFine
                     level_3 = new ItemType[] { ItemType.Coin }, // % VFine
@@ -91,27 +91,27 @@ namespace Better914
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardNTFCommander,
-                    level__4 = new ItemType[] { ItemType.KeycardScientist }, // % Rough
-                    level__3 = new ItemType[] { ItemType.KeycardGuard }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardSeniorGuard }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardNTFLieutenant }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardChaosInsurgency }, // 1:1
+                    level__4 = new ItemType[] { ItemType.Coin }, // % Rough
+                    level__3 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardNTFLieutenant, ItemType.KeycardContainmentEngineer }, // Coarse
+                    level_0 = new ItemType[] { ItemType.KeycardChaosInsurgency, ItemType.KeycardFacilityManager }, // 1:1
                     level_1 = new ItemType[] { ItemType.KeycardO5 }, // Fine
-                    level_2 = new ItemType[] { ItemType.Coin }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.Coin }, // % VFine
+                    level_2 = new ItemType[] { ItemType.KeycardO5 }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardNTFLieutenant,
-                    level__4 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
+                    level__4 = new ItemType[] { ItemType.Coin }, // % Rough
                     level__3 = new ItemType[] { ItemType.KeycardScientist }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardGuard }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardSeniorGuard }, // Coarse
+                    level__2 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // Coarse
                     level_0 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // 1:1
                     level_1 = new ItemType[] { ItemType.KeycardNTFCommander }, // Fine
                     level_2 = new ItemType[] { ItemType.KeycardO5 }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.Coin }, // % VFine
+                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
@@ -120,10 +120,10 @@ namespace Better914
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
                     level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
                     level__2 = new ItemType[] { ItemType.KeycardScientist }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardGuard }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardContainmentEngineer }, // 1:1
-                    level_1 = new ItemType[] { ItemType.KeycardNTFLieutenant }, // Fine
-                    level_2 = new ItemType[] { ItemType.KeycardNTFCommander }, // % Fine, VFine
+                    level__1 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // Coarse
+                    level_0 = new ItemType[] { ItemType.KeycardGuard }, // 1:1
+                    level_1 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // Fine
+                    level_2 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // % Fine, VFine
                     level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
@@ -131,39 +131,39 @@ namespace Better914
                 {
                     item = ItemType.KeycardGuard,
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__3 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardJanitor }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardScientist }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardScientistMajor }, // 1:1
-                    level_1 = new ItemType[] { ItemType.KeycardSeniorGuard }, // Fine
-                    level_2 = new ItemType[] { ItemType.KeycardNTFLieutenant }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.KeycardNTFCommander }, // % VFine
-                    level_4 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
+                    level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardScientist }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // Coarse
+                    level_0 = new ItemType[] { ItemType.KeycardSeniorGuard }, // 1:1
+                    level_1 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // Fine
+                    level_2 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
+                    level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardZoneManager,
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__3 = new ItemType[] { ItemType.Coin }, // % Rough
+                    level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
                     level__2 = new ItemType[] { ItemType.KeycardJanitor }, // % Coarse, Rough
                     level__1 = new ItemType[] { ItemType.KeycardScientist }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardGuard }, // 1:1
-                    level_1 = new ItemType[] { ItemType.KeycardNTFLieutenant }, // Fine
-                    level_2 = new ItemType[] { ItemType.KeycardNTFCommander }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
+                    level_0 = new ItemType[] { ItemType.KeycardScientistMajor }, // 1:1
+                    level_1 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // Fine
+                    level_2 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 new Scp914Recipe()
                 {
                     item = ItemType.KeycardChaosInsurgency,
                     level__4 = new ItemType[] { ItemType.Coin }, // % Rough
-                    level__3 = new ItemType[] { ItemType.KeycardJanitor }, // % Rough
-                    level__2 = new ItemType[] { ItemType.KeycardGuard }, // % Coarse, Rough
-                    level__1 = new ItemType[] { ItemType.KeycardNTFLieutenant }, // Coarse
-                    level_0 = new ItemType[] { ItemType.KeycardNTFCommander }, // 1:1
+                    level__3 = new ItemType[] { ItemType.KeycardScientistMajor, ItemType.KeycardZoneManager }, // % Rough
+                    level__2 = new ItemType[] { ItemType.KeycardGuard, ItemType.KeycardSeniorGuard }, // % Coarse, Rough
+                    level__1 = new ItemType[] { ItemType.KeycardContainmentEngineer, ItemType.KeycardNTFLieutenant }, // Coarse
+                    level_0 = new ItemType[] { ItemType.KeycardFacilityManager, ItemType.KeycardNTFCommander }, // 1:1
                     level_1 = new ItemType[] { ItemType.KeycardO5 }, // Fine
-                    level_2 = new ItemType[] { ItemType.Coin }, // % Fine, VFine
-                    level_3 = new ItemType[] { ItemType.Coin }, // % VFine
+                    level_2 = new ItemType[] { ItemType.KeycardO5 }, // % Fine, VFine
+                    level_3 = new ItemType[] { ItemType.KeycardO5 }, // % VFine
                     level_4 = new ItemType[] { ItemType.Coin }, // % VFine
                 },
                 #endregion
