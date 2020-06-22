@@ -101,7 +101,7 @@ namespace Better914.Patches
             if (knobState == -2)
             {
                 v = GetRandomItem(
-                    new Dictionary<int, int> {
+                    new Dictionary<float, int> {
 			{ 100 - ( PluginConfig.Cfg.Level_4Chance + PluginConfig.Cfg.Level_3Chance ), -2 },
 			{ PluginConfig.Cfg.Level_3Chance, -3 },
 			{ PluginConfig.Cfg.Level_4Chance, -4 }
@@ -110,7 +110,7 @@ namespace Better914.Patches
             else if (knobState == -1)
             {
                 v = GetRandomItem(
-                    new Dictionary<int, int> {
+                    new Dictionary<float, int> {
 			{ PluginConfig.Cfg.SameItemChance, 10 },
 			{ 100 - ( PluginConfig.Cfg.Level_2Chance ), -1 },
 			{ PluginConfig.Cfg.Level_2Chance, -2 }
@@ -119,7 +119,7 @@ namespace Better914.Patches
             else if (knobState == 0)
             {
 		v = GetRandomItem(
-                    new Dictionary<int, int> {
+                    new Dictionary<float, int> {
 			{ PluginConfig.Cfg.SameItemChance, 10 },
 			{ 100 - (PluginConfig.Cfg.SameItemChance), 0 }
             	} );
@@ -127,7 +127,7 @@ namespace Better914.Patches
             else if (knobState == 1)
             {
 		v = GetRandomItem(
-                    new Dictionary<int, int> {
+                    new Dictionary<float, int> {
 			{ PluginConfig.Cfg.SameItemChance, 10 },
 			{ 100 - ( PluginConfig.Cfg.Level2Chance ), 1 },
 			{ PluginConfig.Cfg.Level2Chance, 2 }
@@ -136,7 +136,7 @@ namespace Better914.Patches
             else if (knobState == 2)
             {
                 v = GetRandomItem(
-                    new Dictionary<int, int> {
+                    new Dictionary<float, int> {
 			{ 100 - ( PluginConfig.Cfg.Level4Chance + PluginConfig.Cfg.Level3Chance ), 2 },
 			{ PluginConfig.Cfg.Level3Chance, 3 },
 			{ PluginConfig.Cfg.Level4Chance, 4 }
@@ -331,7 +331,7 @@ namespace Better914.Patches
             return (number < min) ? min : (number > max) ? max : number;
         }
 
-	public static int GetRandomItem(Dictionary<int, int> chances)//int, int = chance, level
+	public static int GetRandomItem(Dictionary<float, int> chances)//int, int = chance, level
 	{
 		var r = Random.Range(0, 10);
 		r *= 10;
