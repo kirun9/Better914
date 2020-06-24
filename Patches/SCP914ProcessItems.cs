@@ -8,19 +8,21 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using System.Linq;
 using System;
-using RemoteAdmin;
 
-namespace Better914.Patches {
-    [HarmonyPatch(typeof(Scp914Machine),nameof(Scp914Machine.ProcessItems))]
-    public class SCP914ProcessItems {
-        public static bool Prefix(Scp914Machine __instance) {
+namespace Better914.Patches
+{
+    [HarmonyPatch(typeof(Scp914Machine), nameof(Scp914Machine.ProcessItems))]
+    public class SCP914ProcessItems
+    {
+        public static bool Prefix(Scp914Machine __instance)
+        {
             try
             {
                 if (!PluginConfig.Cfg.Enabled) return true;
                 if (!PluginConfig.Cfg.UseNewRecipeSystem) return true;
 
                 if (!NetworkServer.active) return false;
-                Collider[] array = Physics.OverlapBox(__instance.intake.position,__instance.inputSize / 2f);
+                Collider[] array = Physics.OverlapBox(__instance.output.position, __instance.inputSize / 2f);
                 __instance.players.Clear();
                 __instance.items.Clear();
                 foreach (var collider in array)
@@ -40,7 +42,7 @@ namespace Better914.Patches {
                     }
                 }
 
-                return Upgrade(__instance,__instance.items,__instance.players);
+                return Upgrade(__instance, __instance.items, __instance.players);
             }
             catch (Exception ex)
             {
@@ -49,27 +51,29 @@ namespace Better914.Patches {
             }
         }
 
-        public static bool Upgrade(Scp914Machine instance,IEnumerable<Pickup> items,IEnumerable<CharacterClassManager> players) {
+        public static bool Upgrade(Scp914Machine instance, IEnumerable<Pickup> items, IEnumerable<CharacterClassManager> players)
+        {
             if (!NetworkServer.active) return true;
             foreach (var pickup in items)
             {
-                UpgradeItem(instance,pickup,true);
-                Scp914Machine.TryFriendshipAchievement(pickup.ItemId,pickup.info.ownerPlayer.GetComponent<CharacterClassManager>(),players);
+                UpgradeItem(instance, pickup, true);
+                Scp914Machine.TryFriendshipAchievement(pickup.ItemId, pickup.info.ownerPlayer.GetComponent<CharacterClassManager>(), players);
             }
 
-            TrySwitchPlayers(instance,players.ToList());
+            TrySwitchPlayers(instance, players.ToList());
 
             foreach (var ccm in players)
             {
-                UpgradePlayer(instance,ccm,players);
+                UpgradePlayer(instance, ccm, players);
             }
 
 
             return false;
         }
 
-        public static void UpgradeItem(Scp914Machine instance,Pickup pickup,bool dropped) {
-            var selectedItem = GetItem(instance.knobState,pickup.ItemId);
+        public static void UpgradeItem(Scp914Machine instance, Pickup pickup, bool dropped)
+        {
+            var selectedItem = GetItem(instance.knobState, pickup.ItemId);
 
             if (selectedItem < 0)
             {
@@ -85,7 +89,8 @@ namespace Better914.Patches {
             }
         }
 
-        public static ItemType GetItem(Scp914Knob knobStateRaw,ItemType item) {
+        public static ItemType GetItem(Scp914Knob knobStateRaw, ItemType item)
+        {
             var recipe = Plugin.Recipes.Where(e => e.item == item).FirstOrDefault();
             if (recipe == null || recipe == default) recipe = Plugin.CreateDefaultRecipe(item);
 
@@ -94,41 +99,41 @@ namespace Better914.Patches {
             int v = 0;
             if (knobState == -2)
             {
-                v = GetRandomItem(new List<Chance> {
-                        new Chance(100 - ( PluginConfig.Cfg.Level_4Chance + PluginConfig.Cfg.Level_3Chance ), -2),
-                        new Chance(PluginConfig.Cfg.Level_3Chance, -3),
-                        new Chance(PluginConfig.Cfg.Level_4Chance, -4)
+                v = GetRandomItem(new List<ChanceClass> {
+                        new ChanceClass(100 - ( PluginConfig.Cfg.Level_4Chance + PluginConfig.Cfg.Level_3Chance ), -2), 
+                        new ChanceClass(PluginConfig.Cfg.Level_3Chance, -3), 
+                        new ChanceClass(PluginConfig.Cfg.Level_4Chance, -4)
                 });
             }
             else if (knobState == -1)
             {
-                v = GetRandomItem(new List<Chance> {
-                        new Chance(PluginConfig.Cfg.SameItemChance, 10),
-                        new Chance(100 - (PluginConfig.Cfg.Level_2Chance), -1),
-                        new Chance(PluginConfig.Cfg.Level_2Chance, -2)
+                v = GetRandomItem(new List<ChanceClass> {
+                        new ChanceClass(PluginConfig.Cfg.SameItemChance, 10), 
+                        new ChanceClass(100 - (PluginConfig.Cfg.Level_2Chance), -1), 
+                        new ChanceClass(PluginConfig.Cfg.Level_2Chance, -2)
                     });
             }
             else if (knobState == 0)
             {
-                v = GetRandomItem(new List<Chance> {
-                        new Chance(PluginConfig.Cfg.SameItemChance, 10),
-                        new Chance(100 - (PluginConfig.Cfg.SameItemChance), 0)
+                v = GetRandomItem(new List<ChanceClass> {
+                        new ChanceClass(PluginConfig.Cfg.SameItemChance, 10), 
+                        new ChanceClass(100 - (PluginConfig.Cfg.SameItemChance), 0)
                     });
             }
             else if (knobState == 1)
             {
-                v = GetRandomItem(new List<Chance> {
-                        new Chance(PluginConfig.Cfg.SameItemChance, 10),
-                        new Chance(100 - (PluginConfig.Cfg.Level2Chance), 1),
-                        new Chance(PluginConfig.Cfg.Level2Chance, 2)
+                v = GetRandomItem(new List<ChanceClass> {
+                        new ChanceClass(PluginConfig.Cfg.SameItemChance, 10), 
+                        new ChanceClass(100 - (PluginConfig.Cfg.Level2Chance), 1), 
+                        new ChanceClass(PluginConfig.Cfg.Level2Chance, 2)
                     });
             }
             else if (knobState == 2)
             {
-                v = GetRandomItem(new List<Chance> {
-                        new Chance(100 - (PluginConfig.Cfg.Level4Chance + PluginConfig.Cfg.Level3Chance ), 2),
-                        new Chance(PluginConfig.Cfg.Level3Chance, 3),
-                        new Chance(PluginConfig.Cfg.Level4Chance, 4)
+                v = GetRandomItem(new List<ChanceClass> {
+                        new ChanceClass(100 - (PluginConfig.Cfg.Level4Chance + PluginConfig.Cfg.Level3Chance ), 2), 
+                        new ChanceClass(PluginConfig.Cfg.Level3Chance, 3), 
+                        new ChanceClass(PluginConfig.Cfg.Level4Chance, 4)
                     });
             }
 
@@ -136,30 +141,31 @@ namespace Better914.Patches {
             else
             {
                 upgradeLevel = v;
-                var options = (upgradeLevel == -4) ? recipe.level__4 :
+                var options =    (upgradeLevel == -4) ? recipe.level__4 :
                                  (upgradeLevel == -3) ? recipe.level__3 :
                                  (upgradeLevel == -2) ? recipe.level__2 :
                                  (upgradeLevel == -1) ? recipe.level__1 :
-                                 (upgradeLevel == 0) ? recipe.level_0 :
-                                 (upgradeLevel == 1) ? recipe.level_1 :
-                                 (upgradeLevel == 2) ? recipe.level_2 :
-                                 (upgradeLevel == 3) ? recipe.level_3 :
-                                 (upgradeLevel == 4) ? recipe.level_4 : new ItemType[] { };
+                                 (upgradeLevel == 0)  ? recipe.level_0 :
+                                 (upgradeLevel == 1)  ? recipe.level_1 :
+                                 (upgradeLevel == 2)  ? recipe.level_2 :
+                                 (upgradeLevel == 3)  ? recipe.level_3 :
+                                 (upgradeLevel == 4)  ? recipe.level_4 : new ItemType[] { };
 
                 if (options.Length > 0)
                 {
-                    return options[options.Length > 1 ? Random.Range(0,options.Length - 1) : 0];
+                    return options[options.Length > 1 ? Random.Range(0, options.Length - 1) : 0];
                 }
                 else return item;
             }
         }
 
-        public static void UpgradePlayer(Scp914Machine instance,CharacterClassManager player,IEnumerable<CharacterClassManager> players) {
+        public static void UpgradePlayer(Scp914Machine instance, CharacterClassManager player, IEnumerable<CharacterClassManager> players)
+        {
             var c = PluginConfig.Cfg;
 
             if (!c.RoughCoarseDamageSCP && player.IsScpButNotZombie())
             {
-                TeleportPlayer(instance,player);
+                TeleportPlayer(instance, player);
                 return;
             }
 
@@ -168,9 +174,9 @@ namespace Better914.Patches {
                 Inventory inv = player.GetComponent<Inventory>();
                 if (inv.items.Count > 0)
                 {
-                    var index = inv.items.Count > 1 ? Random.Range(0,inv.items.Count - 1) : 0;
+                    var index = inv.items.Count > 1 ? Random.Range(0, inv.items.Count - 1) : 0;
                     var itemInfo = inv.items[index];
-                    var item = GetItem(instance.knobState,itemInfo.id);
+                    var item = GetItem(instance.knobState, itemInfo.id);
                     if (item < 0)
                     {
                         inv.items.RemoveAt(index);
@@ -179,7 +185,7 @@ namespace Better914.Patches {
                     {
                         itemInfo.id = item;
                         inv.items[index] = itemInfo;
-                        Scp914Machine.TryFriendshipAchievement(item,player,players);
+                        Scp914Machine.TryFriendshipAchievement(item, player, players);
                     }
                 }
             }
@@ -204,7 +210,7 @@ namespace Better914.Patches {
                         {
                             if (player.IsScpButNotZombie())
                             {
-                                HurtPlayer(stats.maxHP * ((c.RoughDamageAmmout / 2) / 100),stats,player);
+                                HurtPlayer(stats.maxHP * ((c.RoughDamageAmmout / 2) / 100), stats, player);
                             }
                             else
                             {
@@ -218,7 +224,7 @@ namespace Better914.Patches {
                         {
                             if (player.IsScpButNotZombie())
                             {
-                                HurtPlayer(stats.maxHP * ((c.CoarseDamageAmmout / 2) / 100),stats,player);
+                                HurtPlayer(stats.maxHP * ((c.CoarseDamageAmmout / 2) / 100), stats, player);
                             }
                             else
                             {
@@ -240,11 +246,10 @@ namespace Better914.Patches {
                             newPercent += c.VeryFineHealAmmout;
                         }
                     }
-                    newPercent = Constrain(newPercent,100 - c.RoughDamageAmmout,100 + c.VeryFineHealAmmout);
-                    Log.Info("newPercent: " + newPercent + "%");
+                    newPercent = Constrain(newPercent, 100 - c.RoughDamageAmmout, 100 + c.VeryFineHealAmmout);
                     if (newPercent <= 0)
                     {
-                        HurtPlayer(stats.maxHP + 1f,stats,player);
+                        HurtPlayer(stats.maxHP + 1f, stats, player);
                         if (stats.health > 0)
                         {
                             newPercent = 5f;
@@ -268,59 +273,63 @@ namespace Better914.Patches {
                         }
                     }
                     component.ActualHealthPercentage = newPercent;
-                    Log.Info(component.ActualHealthPercentage + "% " + stats.maxHP + "HP " + stats.health + "health");
                 }
             }
-            TeleportPlayer(instance,player);
+            TeleportPlayer(instance, player);
         }
 
-        public static void TeleportPlayer(Scp914Machine instance,CharacterClassManager player) {
+        public static void TeleportPlayer(Scp914Machine instance, CharacterClassManager player)
+        {
             Vector3 b = instance.output.position - instance.intake.position;
-            player.GetComponent<PlyMovementSync>().OverridePosition(player.transform.position + b,0f,false);
+            player.GetComponent<PlyMovementSync>().OverridePosition(player.transform.position + b, 0f, false);
         }
 
-        public static void TrySwitchPlayers(Scp914Machine instance,List<CharacterClassManager> players) {
+        public static void TrySwitchPlayers(Scp914Machine instance, List<CharacterClassManager> players)
+        {
             if (instance.knobState == Scp914Knob.OneToOne)
             {
                 if (players.Count < 2) return;
 
                 if (CheckPercent(PluginConfig.Cfg.SwapRoleChance))
                 {
-                    var player = players[Random.Range(0,players.Count - 1)];
-                    var player2 = SelectDifferentRole(player,players.Except(new CharacterClassManager[] { player }));
+                    var player = players[Random.Range(0, players.Count - 1)];
+                    var player2 = SelectDifferentRole(player, players.Except(new CharacterClassManager[] { player }));
                     var posTemp = player.transform.position;
                     var roleTemp = player.CurClass;
-                    SetClass(player,player2.CurClass,player2.transform.position);
-                    SetClass(player2,roleTemp,posTemp);
+                    SetClass(player, player2.CurClass, player2.transform.position);
+                    SetClass(player2, roleTemp, posTemp);
                 }
             }
         }
 
-        public static void SetClass(CharacterClassManager player,RoleType role,Vector3 position) {
+        public static void SetClass(CharacterClassManager player, RoleType role, Vector3 position)
+        {
             player.NetworkCurClass = role;
             player.GetComponent<PlayerStats>().health = player.Classes.SafeGet(role).maxHP * (player.GetComponent<HealthChangedComponent>().ActualHealthPercentage / 100);
             player.GetComponent<PlayerStats>().maxHP = Mathf.RoundToInt(player.Classes.SafeGet(role).maxHP * (player.GetComponent<HealthChangedComponent>().ActualHealthPercentage / 100));
-            player.GetComponent<PlyMovementSync>().OverridePosition(position,0f,false);
+            player.GetComponent<PlyMovementSync>().OverridePosition(position, 0f, false);
         }
 
-        public static CharacterClassManager SelectDifferentRole(CharacterClassManager player,IEnumerable<CharacterClassManager> players) {
+        public static CharacterClassManager SelectDifferentRole(CharacterClassManager player, IEnumerable<CharacterClassManager> players)
+        {
             var different = players.Where(lPlayer => lPlayer.CurClass != player.CurClass && lPlayer.Classes.SafeGet(lPlayer.CurClass).team != player.Classes.SafeGet(player.CurClass).team && !lPlayer.IsAnyScp());
             if (different != null && different.Count() > 0)
             {
-                return different.ElementAt((different.Count() == 1) ? 0 : Random.Range(0,different.Count() - 1));
+                return different.ElementAt((different.Count() == 1) ? 0 : Random.Range(0, different.Count() - 1));
             }
             return null;
         }
 
-        public static float Constrain(float number,float min,float max) {
+        public static float Constrain(float number, float min, float max)
+        {
             return (number < min) ? min : (number > max) ? max : number;
         }
 
-        public static int GetRandomItem(List<Chance> chances)//int, int = chance, level
+        public static int GetRandomItem(List<ChanceClass> chances)
         {
-            var r = Random.Range(0,10);
+            var r = Random.Range(0, 10);
             r *= 10;
-            int sum = 0;
+            float sum = 0;
             for (int i = 0;i < chances.Count;i++)
             {
                 if (r <= chances[i].Chance + sum) return chances[i].Level;
@@ -331,21 +340,23 @@ namespace Better914.Patches {
 
         public static bool CheckPercent(float chance) {
             chance /= 10;
-            var r = Random.Range(0,10);
+            var r = Random.Range(0, 10);
             return r <= chance;
         }
 
-        private static void HurtPlayer(float damage,PlayerStats stats,CharacterClassManager player) {
+        private static void HurtPlayer(float damage, PlayerStats stats, CharacterClassManager player)
+        {
             var temp = PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick;
             PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick = "SCP-914";
-            stats.HurtPlayer(new PlayerStats.HitInfo(damage,Plugin.LastPlayer,Plugin.Scp914DamageType,Plugin.LastPlayerId),player.gameObject);
+            stats.HurtPlayer(new PlayerStats.HitInfo(damage, Plugin.LastPlayer, Plugin.Scp914DamageType, Plugin.LastPlayerId), player.gameObject);
             PlayerManager.localPlayer.GetComponent<NicknameSync>().MyNick = temp;
         }
 
-        internal class Chance {
+        public class ChanceClass
+        {
             public float Chance;
             public int Level;
-            public Chance(float chance,int level) {
+            public ChanceClass(float chance, int level) {
                 Chance = chance;
                 Level = level;
             }
