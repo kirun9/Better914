@@ -22,7 +22,7 @@ namespace Better914.Patches
                 if (!PluginConfig.Cfg.UseNewRecipeSystem) return true;
 
                 if (!NetworkServer.active) return false;
-                Collider[] array = Physics.OverlapBox(__instance.output.position, __instance.inputSize / 2f);
+                Collider[] array = Physics.OverlapBox(__instance.intake.position, __instance.inputSize / 2f);
                 __instance.players.Clear();
                 __instance.items.Clear();
                 foreach (var collider in array)
